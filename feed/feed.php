@@ -101,25 +101,25 @@ if ($type == "top") {
 
     }
 
-    $buffer = array ("status_text" => "OK", 
-                     "status_code" => 200, 
-                     "results"     => 1, 
-                     "start"       => 0, 
-                     "total"       => 1, 
-                     "albums"      => array ("description" => $album ['descr'], 
-                     "artist"      => $album ['artist_name'], 
-                     "date"        => date( 'D M d Y H:i:s O', strtotime( $album ['date'] ) ), 
-                     "artwork_url" => $config['siteurl'] . "static/albums/" . $config['album_week'] ."_extralarge.jpg", 
-                     "title"       => $album ['album_title'], 
-                     "day"         => 20111005, 
-                     "audios"       => $audios ) );
+    $buffer = array ("status_text" => "OK",
+        "status_code" => 200,
+        "results"     => 1,
+        "start"       => 0,
+        "total"       => 1,
+        "albums"      => array ("description" => $album ['descr'],
+            "artist"      => $album ['artist_name'],
+            "date"        => date( 'D M d Y H:i:s O', strtotime( $album ['date'] ) ),
+            "artwork_url" => $config['siteurl'] . "static/albums/" . $config['album_week'] ."_extralarge.jpg",
+            "title"       => $album ['album_title'],
+            "day"         => 20111005,
+            "audios"       => $audios ) );
 
     header( 'Cache-Control: no-cache, must-revalidate' );
 
     header( 'Content-type: application/json' );
 
     print json_encode( $buffer );
-    
+
 } elseif ($type == "last_loved") {
     $sql_result = last_loved_sql_result ();
 
@@ -420,7 +420,7 @@ if ($type == "top") {
         $results_number = $_REQUEST ['results'];
         $page_start     = $start;
         $page_end       = $start + $results_number;
-        
+
         $total_results  = $db->num_rows ( $sql_result );
 
         $i = 0;
@@ -644,19 +644,19 @@ if ($type == "top") {
         } elseif ($action == "follow") {
 
             $row = profile_user_id ( $username , 1 );
-            
+
             profile_follow ($member_id ['user_id'], $row ['user_id']);
 
             $buffer = array (
-            "status_code" => 200, 
-            "status_text" => "OK", 
-            "user"        => array ("username" => $username, 
-                                "image" => avatar ( $row ['avatar'], $row ['user_id'] ) ) );
+                "status_code" => 200,
+                "status_text" => "OK",
+                "user"        => array ("username" => $username,
+                    "image" => avatar ( $row ['avatar'], $row ['user_id'] ) ) );
 
         } elseif ($action == "unfollow") {
 
             $row = profile_user_id ( $username , 1 );
-            
+
             profile_unfollow ($member_id ['user_id'], $row ['user_id']);
 
             $buffer = array ("status_code" => 200, "status_text" => "OK", "user" => array ("username" => $username, "image" => avatar ( $row ['avatar'], $row ['user_id'] ) ) );
@@ -808,13 +808,13 @@ if ($type == "top") {
 } elseif ($type == "genres") {
 
     $genres = genre_sticky();
-    
+
     $total_results = $db->num_rows ( $genres );
-    
+
     while($genre = $db->get_row($genres)){
         $result ['genres'][] = $genre['name'];
     }
-    
+
     $result ['status_text']   = "OK";
     $result ['status_code']   = "200";
     $result ['total']         = $total_results;
@@ -906,14 +906,14 @@ if ($type == "top") {
         if ($action == "love") {
 
             $audio_id = $db->safesql ( $_REQUEST ['audioid'] );
-            
+
             love_track($audio_id, $member_id ['user_id']);
 
             $buffer ['status_code'] = 200;
             $buffer ['status_text'] = "Added audio to lover.";
 
         } elseif ($action == "unlove") {
-            
+
             unlove_track($audio_id, $member_id ['user_id']);
 
             $buffer ['status_code'] = 200;
@@ -940,7 +940,7 @@ if ($type == "top") {
     } else {
 
         $audio_id = intval( $_REQUEST ['audioid'] );
-        
+
         played_count ($audio_id, $_TIME );
 
     }
@@ -949,18 +949,18 @@ if ($type == "top") {
     print json_encode( $buffer );
 
 } elseif ($type == "download") {
-    
+
     if (! $_REQUEST ['audioid']) {
 
         header( 'HTTP/1.0 404 Not Found' );
-        
+
         $buffer ['status_code'] = 404;
         $buffer ['status_text'] = "Not Found";
 
     } else {
 
         $audio_id = intval( $_REQUEST ['audioid'] );
-        
+
         download_count ($audio_id, $_TIME );
 
     }
@@ -1203,9 +1203,9 @@ if ($type == "top") {
             $use_image = $db->safesql ( $_POST ['use_image'] );
 
             if ($color)
-            
-            member_update_background_color ($member_id, $color , $image , $position , $repeat , $use_image);
-                
+
+                member_update_background_color ($member_id, $color , $image , $position , $repeat , $use_image);
+
             $buffer ['status_code']               = 200;
             $buffer ['status_text']               = "OK";
             $buffer ['user']                      = $member_id;
@@ -1248,7 +1248,7 @@ if ($type == "top") {
                     $buffer ['status_code'] = 200;
                     $buffer ['removed']     = "facebook";
                     $buffer ['status_text'] = "OK";
-                    
+
                 } elseif ($social == "twitter") {
                     member_delete_twitter  ( $member_id['user_id']);
                     $buffer ['status_code'] = 200;
@@ -1257,7 +1257,7 @@ if ($type == "top") {
                 }
             } else {
 
-                $row = $db->super_query ( "SELECT screen_id AS twitter_screen_id, screen_name AS twitter_screen_name, date AS twitter_date FROM vass_twitter WHERE user_id = '" . $member_id ['user_id'] . "'" );
+                $row = member_twitter_id ($member_id ['user_id'] );
 
                 if ($row ['twitter_screen_id']) {
                     $service ['twitter'] ['name']         = $row ['twitter_screen_name'];
@@ -1268,7 +1268,7 @@ if ($type == "top") {
                     $service ['twitter'] ['added_on']  = date( 'D M d Y H:i:s O', strtotime( $row ['twitter_date'] ) );
                 }
 
-                $row = $db->super_query ( "SELECT screen_id AS facebook_screen_id, screen_name AS facebook_screen_name, date AS facebook_date FROM vass_facebook WHERE user_id = '" . $member_id ['user_id'] . "'" );
+                $row = member_facebook_id ( $member_id ['user_id'] );
 
                 if ($row ['facebook_screen_id']) {
 
@@ -1294,15 +1294,14 @@ if ($type == "top") {
             $new_password         = $db->safesql ( md5( $_POST ['new_password'] ) );
             $confirm_new_password = $db->safesql ( md5( $_POST ['confirm_new_password'] ) );
 
-            $row = $db->super_query ( "SELECT user_id FROM vass_users WHERE user_id = '" . $member_id ['user_id'] . "' AND password = '" . $password . "'" );
+            $row = member_login ($member_id ['user_id'] , $password );
 
             if (! $row ['user_id']) {
                 $buffer = array ("status_code" => "400",
                     "status_text" => "Old password is incorrect" );
 
             } else {
-
-                $db->query ( "UPDATE vass_users SET password = '$new_password' WHERE user_id = '" . $member_id ['user_id'] . "'" );
+                member_login_update_password($member_id['user_id'], $new_password);
 
                 $buffer = array ("status_code" => 200,
                     "status_text" => "OK",
@@ -1316,10 +1315,10 @@ if ($type == "top") {
             $location = $db->safesql ( $_POST ['location'] );
             $name     = $db->safesql ( $_POST ['name'] );
             $website  = $db->safesql ( $_POST ['website'] );
+            
+            member_update_profile ($member_id, $bio, $location, $name, $website );
 
-            $db->query ( "UPDATE vass_users SET bio = '$bio', location = '$location', name = '$name', website = '$website' WHERE user_id = '" . $member_id ['user_id'] . "'" );
-
-            $row = $db->super_query ( "SELECT vass_users.name, vass_users.bio, vass_users.website, vass_users.total_loved, vass_users.location, vass_users.total_loved, vass_users.total_following, vass_users.total_followers, vass_background.color, vass_background.image, vass_background.position, vass_background.repeat, vass_background.use_image FROM vass_users LEFT JOIN vass_background ON vass_users.user_id = vass_background.user_id WHERE vass_users.username = '" . $username . "';" );
+            $row = member_profile ( $username );
 
             $buffer ['status_code'] = 200;
             $buffer ['status_text'] = "OK";
@@ -1352,7 +1351,6 @@ if ($type == "top") {
     $db->close ();
 
     header( 'Cache-Control: no-cache, must-revalidate' );
-
     header( 'Content-type: application/json' );
 
     print json_encode( $buffer );
@@ -1376,7 +1374,8 @@ if ($type == "top") {
 
         if( ! $name ) die();
         else{
-            $db->query("INSERT INTO vass_playlists (user_id, `date`, name, descr) VALUES ('" . $member_id ['user_id'] . "', '$_TIME', '$name', '$descr');");
+            playlist_insert ($member_id ['user_id'], $_TIME, $name, $descr );
+            
 
             $playlist_id = $db->insert_id();
 
@@ -1411,8 +1410,8 @@ if ($type == "top") {
 
         if( ! $name ) die();
         else{
-            $db->query("UPDATE vass_playlists SET name= '$name', descr = '$descr' WHERE user_id = '" . $member_id ['user_id'] . "' AND id = '$id';");
-
+            playlist_update ($member_id ['user_id'], $id, $name, $descr);
+            
             $buffer ['name']        = $name;
             $buffer ['descr']       = $descr;
             $buffer ['status_text'] = "OK";
@@ -1442,7 +1441,10 @@ if ($type == "top") {
         foreach($items as $item){
 
             if(!empty($item)){
-                $db->query ("UPDATE vass_audio_playlist SET pos = '$i' WHERE audio_id = '" . $db->safesql($item) . "' AND playlist_id = '$playlist_id'");
+                $item = $db->safesql($item);
+                
+                playlist_sort ($playlist_id, $item , $i );
+                
                 $i++;
             }
             $buffer ['status_text'] = "OK";
@@ -1465,7 +1467,8 @@ if ($type == "top") {
 
         if( ! $id ) die();
         else{
-            $db->query("DELETE FROM vass_playlists WHERE user_id = '" . $member_id ['user_id'] . "' AND id = '$id';");
+            playlist_remove ($member_id ['user_id'], $id );
+            
             $buffer ['playlist_id'] = $id;
             $buffer ['status_text'] = "OK";
             $buffer ['status_code'] = "200";
@@ -1475,9 +1478,7 @@ if ($type == "top") {
 
         $id = intval( $_REQUEST ['id'] );
 
-        $row = $db->super_query ( "SELECT vass_playlists.name, vass_playlists.date, vass_playlists.id AS playlist_id, vass_playlists.cover, vass_playlists.descr,
-		vass_users.username
-		FROM vass_playlists LEFT JOIN vass_users ON vass_playlists.user_id = vass_users.user_id WHERE vass_playlists.id = '" . $id . "';" );
+        $row = playlist_info ($id);
 
         $playlist = $row;
 
@@ -1500,8 +1501,11 @@ if ($type == "top") {
 
         $audio_id = $db->safesql ( $_REQUEST ['audio_id'] );
 
-        if($audio_id && $playlist_id) $db->query("INSERT IGNORE INTO vass_audio_playlist (audio_id, playlist_id) VALUES ('$audio_id', '$playlist_id')");
-
+        if($audio_id && $playlist_id){
+            playlist_add_audio ($playlist_id , $audio_id);
+        
+        }
+         
         $buffer = array ("status_code" => 200,
             "status_text" => "OK");
 
@@ -1525,7 +1529,9 @@ if ($type == "top") {
 
             $audio_id = $item->id;
 
-            if($audio_id && $playlist_id) $db->query("INSERT IGNORE INTO vass_audio_playlist (audio_id, playlist_id) VALUES ('$audio_id', '$playlist_id')");
+            if($audio_id && $playlist_id){
+                playlist_add_audio ($playlist_id , $audio_id);
+            }
 
         }
 
@@ -1548,7 +1554,9 @@ if ($type == "top") {
 
         $audio_id = $db->safesql ( $_REQUEST ['audio_id'] );
 
-        if($audio_id && $playlist_id) $db->query("DELETE FROM vass_audio_playlist WHERE audio_id = '$audio_id' AND playlist_id = '$playlist_id'");
+        if($audio_id && $playlist_id){
+            playlist_remove_audio ($playlist_id , $audio_id);
+        }
 
         $buffer = array ("status_code" => 200,
             "status_text" => "OK");
@@ -1557,16 +1565,12 @@ if ($type == "top") {
 
         $playlist_id = intval( $_REQUEST ['id'] );
 
-        $owner = $db->super_query("SELECT user_id FROM vass_playlists WHERE id = '$playlist_id'");
+        $owner = playlist_creator ($playlist_id );
 
-        $sql_query = $db->query ( "SELECT vass_audios.artist_id, vass_audios.id AS audio_id, vass_audios.loved, vass_audios.title AS audio_title,
-				vass_artists.id AS artist_id, vass_artists.name AS audio_artist, vass_albums.name AS audio_album, vass_albums.id AS album_id
-				FROM vass_audio_playlist LEFT JOIN vass_audios ON vass_audio_playlist.audio_id = vass_audios.id LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audio_playlist.playlist_id = '" . $playlist_id . "' ORDER BY vass_audio_playlist.pos ASC LIMIT $start,$results_number");
+        $sql_query = playlist_results ($playlist_id , $start , $results_number );
 
-        $total_results = $db->super_query ( "SELECT COUNT(*) AS count
-				FROM vass_audio_playlist LEFT JOIN vass_audios ON vass_audio_playlist.audio_id = vass_audios.id LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audio_playlist.playlist_id = '" . $playlist_id . "'" );
+
+        $total_results = playlist_total_results ($playlist_id );
 
         while ( $row = $db->get_row ($sql_query) ) {
 
@@ -1621,16 +1625,10 @@ if ($type == "top") {
 
         $playlist_id = intval( $_REQUEST ['id'] );
 
-        $owner = $db->super_query("SELECT user_id FROM vass_playlists WHERE id = '$playlist_id'");
+        $owner         = playlist_creator ($playlist_id );
+        $sql_query     = playlist_results_asc ($playlist_id );
+        $total_results = playlist_total_results ($playlist_id );
 
-        $sql_query = $db->query ( "SELECT vass_audios.artist_id, vass_audios.id AS audio_id, vass_audios.loved, vass_audios.title AS audio_title,
-				vass_artists.id AS artist_id, vass_artists.name AS audio_artist, vass_albums.name AS audio_album, vass_albums.id AS album_id
-				FROM vass_audio_playlist LEFT JOIN vass_audios ON vass_audio_playlist.audio_id = vass_audios.id LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audio_playlist.playlist_id = '" . $playlist_id . "' ORDER BY vass_audio_playlist.pos ASC" );
-
-        $total_results = $db->super_query ( "SELECT COUNT(*) AS count
-				FROM vass_audio_playlist LEFT JOIN vass_audios ON vass_audio_playlist.audio_id = vass_audios.id LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audio_playlist.playlist_id = '" . $playlist_id . "'" );
         $i = 0;
         while ( $row = $db->get_row ($sql_query) ) {
 
@@ -1675,24 +1673,19 @@ if ($type == "top") {
     }
 
     header( 'Cache-Control: no-cache, must-revalidate' );
-
     header( 'Content-type: application/json' );
 
     print json_encode( $buffer );
 
 }elseif ($type == "last_playlists") {
 
-    $sql_result = $db->query ( "SELECT vass_playlists.name, vass_playlists.date, vass_playlists.id AS playlist_id, vass_playlists.cover, vass_playlists.descr,
-	vass_users.username
-	FROM vass_playlists LEFT JOIN vass_users ON vass_playlists.user_id = vass_users.user_id ORDER by vass_playlists.id DESC;" );
+    $sql_result = playlist_last ();
 
-    $start = $_REQUEST ['start'];
+    $start          = $_REQUEST ['start'];
     $results_number = $_REQUEST ['results'];
 
-    $page_start = $start;
-
-    $page_end = $start + $results_number;
-
+    $page_start    = $start;
+    $page_end      = $start + $results_number;
     $total_results = $db->num_rows ( $sql_result );
 
     $i = 0;
@@ -1714,7 +1707,7 @@ if ($type == "top") {
             $object ['object'] ['descr']        = $row ['descr'];
             $object ['object'] ['created_on']   = date( 'D M d Y H:i:s O', strtotime( $row ['date'] ) );
             $object ['object'] ['owner']        = array ("username" => $row ['username'],
-                "created_on" => date( 'D M d Y H:i:s O', strtotime( $row ['created_on'] ) ) );
+                                                       "created_on" => date( 'D M d Y H:i:s O', strtotime( $row ['created_on'] ) ) );
 
             $activities [] = $object;
 

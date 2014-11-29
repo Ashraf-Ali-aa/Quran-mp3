@@ -122,3 +122,53 @@ function member_delete_twitter ($member_id){
     $db->query("DELETE FROM vass_twitter WHERE user_id = '" . $member_id . "'");
 
 }
+
+function member_twitter_id ($member_id){
+    global $db;
+
+    $buffer = $db->super_query ( "SELECT screen_id AS twitter_screen_id, screen_name AS twitter_screen_name, date AS twitter_date FROM vass_twitter WHERE user_id = '" . $member_id . "'" );
+    
+    return $buffer;
+
+}
+
+function member_facebook_id ($member_id){
+    global $db;
+
+    $buffer = $db->super_query ( "SELECT screen_id AS facebook_screen_id, screen_name AS facebook_screen_name, date AS facebook_date FROM vass_facebook WHERE user_id = '" . $member_id . "'" );
+    
+    return $buffer;
+
+}
+
+function member_login ($member_id, $password ){
+    global $db;
+
+    $buffer = $db->super_query ( "SELECT user_id FROM vass_users WHERE user_id = '" . $member_id . "' AND password = '" . $password . "'" );
+    
+    return $buffer;
+
+}
+
+function member_login_update_password ($member_id, $new_password ){
+    global $db;
+
+    $db->query ( "UPDATE vass_users SET password = '". $new_password . "' WHERE user_id = '" . $member_id . "'" );
+
+}
+
+function member_update_profile ($member_id, $bio, $location, $name, $website ){
+    global $db;
+
+    $db->query ( "UPDATE vass_users SET bio = '". $bio ."', location = '". $location. "', name = '". $name ."', website = '". $website. "' WHERE user_id = '" . $member_id . "'" );
+
+}
+
+function member_profile ($username ){
+    global $db;
+
+    $buffer = $db->super_query ( "SELECT vass_users.name, vass_users.bio, vass_users.website, vass_users.total_loved, vass_users.location, vass_users.total_loved, vass_users.total_following, vass_users.total_followers, vass_background.color, vass_background.image, vass_background.position, vass_background.repeat, vass_background.use_image FROM vass_users LEFT JOIN vass_background ON vass_users.user_id = vass_background.user_id WHERE vass_users.username = '" . $username . "';" );
+    
+    return $buffer;
+
+}
