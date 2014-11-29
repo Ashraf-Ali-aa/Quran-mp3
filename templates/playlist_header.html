@@ -1,0 +1,20 @@
+<div id="audio_top">
+    <div class="audio_top_avatar">
+        <% if (cover == 0){ %>
+          <img src="'+player_root+'static/playlists/default.png" width="75" height="75" id="playlist_top_cover_img" />
+        <% } else { %>
+          <img src="'+player_root+'static/playlists/<%= id %>.jpg" width="75" height="75" id="playlist_top_cover_img" />
+        <% } %>
+    </div>
+    <div class="audio_top_text">
+      <div id="audio_top_username" class="playlist_page_title"><div id="playlist_name"><%= name %></div>
+        <div class="playlist_page_artist" title="View <%= username %>\'s profile" style="margin-left:0;">by <a href="/<%= username %>"><%= username %></a></div>
+       </div>
+        <div class="playlist_top_bio" id="playlist_descr"><%= descr %></div>
+        <div class="audio_top_play_all button_icon">Play All</div>
+        <% if (loggedInUser && loggedInUser.username == username){ %>
+          <span class="audio_top_edit_playlist">Edit this playlist</span>
+          <% } %>
+    </div>
+</div>
+<div id="item_rows"></div>

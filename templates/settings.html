@@ -1,0 +1,13 @@
+<% if (loggedInUser != null){ %>
+<div id="settings_top"><%= loggedInUser.username %>\'s settings</div>
+<% } else { %>
+<div id="settings_top">Settings</div>
+<% } %>
+<div id="settings_tabs">
+    <a href="/settings/profile" id="settings_profile" type="profile" class="settings_tab">Profile</a>
+    <a href="/settings/social" id="settings_social" type="social" class="settings_tab">Social</a>
+    <a href="/settings/design" id="settings_design" type="design" class="settings_tab">Themes</a>
+    <a href="/settings/account" id="settings_account" type="account" class="settings_tab">Account</a>
+    <!-- <a href="/settings/notifications" id="settings_notifications" type="notifications" class="settings_tab">Notifications</a> -->
+</div>
+<div id="settings_middle"></div>

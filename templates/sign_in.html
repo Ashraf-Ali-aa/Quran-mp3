@@ -1,0 +1,51 @@
+<div id="sign_in_box" class="modal_box">
+    <div class="modal_close_button" id="sign_in_close_button"></div>
+    <div class="modal_top">Sign in</div>
+    <div id="sign_in_box_middle" class="modal_middle">
+        <form id="sign_in_form" action="" method="post" onsubmit="return false;">
+            <div class="sign_in_input_div">
+                <label class="sign_in_label" for="sign_in_username">Account:</label>
+                <input type="text" id="sign_in_username" name="username" class="large_input_text" placeholder="Username" />
+                <br class="clear" />
+            </div>
+            <div class="sign_in_input_div">
+                <label class="sign_in_label" for="sign_in_password">Password:</label>
+                <input type="password" name="password" id="sign_in_password" class="large_input_text" />
+                <br class="clear" />
+            </div>
+            <br class="clear" />
+            <div class="sign_in_simple_actions">
+                <div class="sign_in_simple_message display_none" id="sign_in_message"></div>
+                <input type="submit" class="modal_bottom_button generic_button button_icon" id="sign_in_button" value="Sign in" />
+                <div class="sign_in_simple_link sign_in_simple_forgot_password">Lost password?</div>
+        <div class="clear"></div>
+        <div id="sign_in_simple_links">
+                    <a href="/create-account" class="sign_in_simple_link sign_in_simple_create_account">Become a member? <strong>Join the AltSounds Massive now!</strong></a>
+                    <br class="clear" />
+                </div>
+            </div>
+        </form>
+        <form id="password_reset_form" class="display_none" action="" method="POST">
+            <div class="sign_in_input_div">
+                <label class="sign_in_label" for="forgot_password_email">Email:</label>
+                <input type="text" id="forgot_password_email" class="large_input_text" />
+                <div class="clear"></div>
+                <div class="forgot_password_message">Enter your email address</div>
+            </div>
+            <br class="clear" />
+            <div class="sign_in_simple_actions">
+                <div class="sign_in_simple_message display_none" id="sign_in_forgot_message"></div>
+                <input type="submit" class="modal_bottom_button generic_button" id="forgot_password_button" value="Restore password"/>
+                <div class="clear"></div>
+                <div id="sign_in_simple_links">
+                    <div class="sign_in_simple_link sign_in_simple_sign_in">Go back <strong>Login</strong></div>
+                </div>
+            </div>
+        </form>
+        <div id="create_account_oauth">
+      <div class="create_account_oauth button_icon create_account_facebook" service="facebook">Login with Facebook</div>
+      <div class="create_account_oauth button_icon create_account_twitter" service="twitter">Login with Twitter</div>
+      <br class="clear" />
+    </div>
+    </div>
+</div>

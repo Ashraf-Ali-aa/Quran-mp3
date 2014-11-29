@@ -1,0 +1,23 @@
+<div class="modal_close_button" id="create_account_close_button"></div>
+<% if (has_profile == true){ %>
+<div class="modal_top">Find Friends to Follow</div>
+<div id="create_account_box_middle" class="modal_middle">
+    <div id="find_friends_results" class="display_none find_friends_middle"></div>
+  <div class="modal_bottom_button generic_button" id="create_account_continue_button">Continue</div>
+
+<% } else { %>
+<div class="modal_top">Welcome to TANCODE LISTEN!</div>
+<div id="create_account_box_middle" class="modal_middle">
+    <div id="create_account_success_title">Find your friends</div>
+    <div id="create_account_box_connections_instructions">Connect your social networks to quickly find friends already using TANCODE</div>
+    <div id="create_account_box_connections">
+      <div class="create_account_oauth button_icon create_account_facebook" service="facebook">Connect Facebook</div>
+      <div class="create_account_oauth button_icon create_account_twitter" service="twitter">Connect Twitter</div>
+    </div>
+  <div class="input_message display_none" id="create_account_message"></div>
+    <div id="find_friends_results" class="display_none find_friends_middle"></div>
+
+<% } %>
+
+  <div class="create_account_later">I\'ll do this later</div>
+</div>

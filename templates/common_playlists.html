@@ -1,0 +1,19 @@
+<div class="display_playlist_<%= playlist.playlist_id %> user_row <%= !(position % 2 == 0) %>">
+    <div class="user_row_avatar">
+      <a href="/playlist/<%= playlist.playlist_id %>" <% if (playlist.cover == 0){ %> style="background-image:url('+player_root+'static/playlists/default.png)"<% } else { %> style="background-image:url('+player_root+'static/playlists/<%= playlist.playlist_id %>.jpg)"<% } %> class="user_row_avatar_link"></a>
+    </div>
+    <div class="user_row_info">
+        <div class="user_row_username">
+          <a href="/playlist/<%= playlist.playlist_id %>"><%= playlist.name %></a>
+        <% if (Utils.HasValue(playlist.username) == true){ %>
+          <span class="user_row_name"><a href="/<%= playlist.username %>" style="font-weight:normal"><%= playlist.username %></a></span>
+        <% } %>
+        </div>
+    <% if (Utils.HasValue(playlist.descr) == true){ %>
+        <div class="user_row_bio"><%= playlist.descr %></div>
+    <% } %>
+      <% if (loggedInUser && loggedInUser.username == playlist.username){ %>
+          <div class="user_row_playlist_button delete_icon" data-playlist-id="<%= playlist.playlist_id %>">Delete</div>
+        <% } %>
+    </div>
+</div>

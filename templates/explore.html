@@ -1,0 +1,32 @@
+<div id="explore">
+  <div id="explore_nav">
+    <div id="explore_nav_wrapper">
+    <% if (section == "top-of-the-week"){ %>
+            <a href="/explore/top-of-the-week" id="explore_nav_sotd" class="explore_nav_item active">Top of the Week</a>
+        <% } else { %>
+            <a href="/explore/top-of-the-week" id="explore_nav_sotd" class="explore_nav_item">Top of the Week</a>
+        <% } %>
+  <% if (section == "genres"){ %>
+            <a href="/explore/genres" id="explore_nav_genres" class="explore_nav_item active">Genres</a>
+        <% } else { %>
+            <a href="/explore/genres" id="explore_nav_genres" class="explore_nav_item">Genres</a>
+        <% } %>
+       <% if (section == "album-of-the-week"){ %>
+            <a href="/explore/album-of-the-week" id="explore_nav_aow" class="explore_nav_item active">Featured Album</a>
+        <% } else { %>
+            <a href="/explore/album-of-the-week" id="explore_nav_aow" class="explore_nav_item">Featured Album</a>
+        <% } %>
+        <% if (section == "tastemakers"){ %>
+            <a href="/explore/tastemakers" id="explore_nav_tastemakers" class="explore_nav_item active">Tastemakers</a>
+        <% } else { %>
+            <a href="/explore/tastemakers" id="explore_nav_tastemakers" class="explore_nav_item">Tastemakers</a>
+        <% } %>
+ <% if (section == "latest"){ %> 
+            <a href="/explore/latest" id="explore_nav_loved" class="explore_nav_item active">Latest Loved</a>
+        <% } else { %>
+            <a href="/explore/latest" id="explore_nav_loved" class="explore_nav_item">Latest Loved</a>
+        <% } %>
+        </div>
+  </div>  
+</div>
+

@@ -1,0 +1,124 @@
+<div class="settings_profile_section settings_themes">
+    <div class="settings_profile_header">Choose theme</div>
+    <div class="settings_profile_item">
+        <div id="settings_profile_themes">
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_jon-contino" theme="jon-contino.jpg" repeat="repeat" position="left top" color="#000"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://joncontino.com/" target="_blank" outbound_type="settings_design_theme">Jon Contino</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_a-micah-smith" theme="a-micah-smith.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://www.amicahsmith.com/" target="_blank" outbound_type="settings_design_theme">A. Micah Smith</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_christopher-paul" theme="christopher-paul.png" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://www.thechristopherpaul.com/" target="_blank" outbound_type="settings_design_theme">Christopher Paul</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_erik-hamline" theme="erik-hamline.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://woodsandweather.com/" target="_blank" outbound_type="settings_design_theme">Erik Hamline</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_jan-kallwejt" theme="jan-kallwejt.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://www.kallwejt.com/" target="_blank" outbound_type="settings_design_theme">Jan Kallwejt</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_mark-moreno" theme="mark-moreno.png" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://www.sarmel.com/" target="_blank" outbound_type="settings_design_theme">Mark Sarmel</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_matt-stevens" theme="matt-stevens.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://cargocollective.com/mattstevens" target="_blank" outbound_type="settings_design_theme">Matt Stevens</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_mike-lowery" theme="mike-lowery.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="http://argyleacademy.com/" target="_blank" outbound_type="settings_design_theme">Mike Lowery</a>
+                </div>
+            </div>
+            <div class="settings_profile_theme_artist">
+                <div class="settings_profile_theme" id="settings_profile_theme_vicki-liantonio" theme="vicki-liantonio.jpg" repeat="repeat" position="left top" color="#FFFFFF"></div>
+                <div class="settings_theme_artist_info">
+                    <a href="#" target="_blank" outbound_type="settings_design_theme">Vicki Liantonio</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="settings_description">Customize the way your profile looks. Start with a pre-designed theme or create your own background..</div>
+
+<div class="settings_profile_left">
+    <div class="settings_profile_section">
+        <div class="settings_profile_header">Create your own background</div>
+        <div class="settings_profile_item">
+            <div class="settings_profile_label">Background Image</div>
+        <% var bgImage = background.image;
+           if (background.image == null || background.image == "null"){
+                bgImage = "";
+           };
+        %>
+            <input id="settings_design_image" type="text" class="large_input_text" value="<%= bgImage %>" />
+            <div class="settings_profile_description">Set the background image position on your profile..</div>
+        </div>
+        <div id="settings_design_background">
+            <div class="settings_profile_item">
+                <div class="settings_profile_label">Image Position</div>
+                <% if (background.position == "left top"){ %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" checked="checked" id="settings_design_image_position_left_top" value="left top" />
+                <% } else { %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" id="settings_design_image_position_left_top" value="left top" />
+                <% }  %>   
+                <label id="settings_design_image_position_left_top_label" for="settings_design_image_position_left_top">Top Left</label>
+                <% if (background.position == "center top"){ %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" checked="checked" id="settings_design_image_position_center_top" value="center top" />
+                <% } else { %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" id="settings_design_image_position_center_top" value="center top" />
+                <% }  %>
+                <label id="settings_design_image_position_center_top_label" for="settings_design_image_position_center_top">Top Center</label>
+                <% if (background.position == "right top"){ %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" checked="checked" id="settings_design_image_position_right_top" value="right top" />
+                <% } else { %>
+                    <input name="settings_design_image_position" class="settings_design_image_position_radio" type="radio" id="settings_design_image_position_right_top" value="right top" />
+                <% }  %>
+                <label id="settings_design_image_position_right_top_label" for="settings_design_image_position_right_top">Top Right</label>
+                <div class="settings_profile_description">Set the background color on your profile..</div>
+            </div>
+            <div class="settings_profile_item" id="settings_design_repeat_option">
+            <% if (background.repeat != null){ %>
+                <% if (background.repeat == "repeat"){ %>
+                    <input id="settings_design_repeat" type="checkbox" checked="checked" />
+                <% } else { %>
+                    <input id="settings_design_repeat" type="checkbox" />
+                <% } %>
+            <% } else { %>
+                    <input id="settings_design_repeat" type="checkbox" />
+            <% } %>
+                <label id="settings_design_repeat_label" for="settings_design_repeat">Tile Background Image</label>
+            </div>
+        </div>
+        <div class="settings_profile_item">
+            <div class="settings_profile_label">Background Color</div>
+            <input id="settings_design_color" type="text" class="large_input_text" value="<%= background.color %>" />
+            <div class="settings_profile_description">Set the background color on your profile.</div>
+        </div>
+    </div>
+    <div class="settings_profile_item">
+        <div id="settings_design_save_button" class="generic_button"><div class="loader_small display_none" id="settings_design_save_green_check"></div>SAVE CHANGES</div>
+    </div>
+</div>

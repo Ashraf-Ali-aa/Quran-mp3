@@ -1,0 +1,11 @@
+<div class="tastemaker_audio">
+  <a class="tastemaker_audio_albumart" href="/audio/<%= id %>" style="background-image:url(<%= image.medium %>);"></a>
+  <div class="tastemaker_audio_meta">
+    <div class="tastemaker_audio_title"><%= title %></div>
+  <% if (Utils.HasValue(artist) == true) { %>
+    <div class="tastemaker_audio_artist">
+      <span class="meta_descriptor">by </span><%= artist %>
+    </div>
+  <% } %>
+  </div>
+</div>

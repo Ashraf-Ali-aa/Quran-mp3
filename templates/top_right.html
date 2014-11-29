@@ -1,0 +1,9 @@
+<% if (logged_in_user == true){ %>
+    <div id="logged_in_user">
+        <img id="logged_in_user_avatar" src="<%= user.image.small %>" width="20" height="20" >
+        <span id="logged_in_user_username"><%= user.username %></span>
+    </div>
+<% } else { %>
+    <a href="/sign-in" id="sign_in_link" class="account_link">Login</a>
+    <a href="/create-account" id="create_account_link" class="account_link">Create account</a>
+<% } %>

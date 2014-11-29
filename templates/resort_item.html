@@ -1,0 +1,7 @@
+<li class="resort_playlist_row <%= (position % 2 == 0) %>" position="<%= position %>" audio_id="<%= audio.id %>" playlist_id="<%= audio.playlist_id %>">
+    <div class="resort_playlist_draggy"></div>
+    <span class="resort_playlist_audiotitle"><%= audio.title %></span>
+<% if (Utils.HasValue(audio.artist) == true){ %>
+    <div class="resort_playlist_artist">- <%= audio.artist %></div>
+<% } %>
+</li>

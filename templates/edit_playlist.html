@@ -1,0 +1,27 @@
+<div id="edit_playlist_box" class="modal_box">
+    <div class="modal_close_button" id="edit_playlist_close_button"></div>
+    <div class="modal_top">Edit playlist</div>
+    <div id="create_account_box_middle" class="modal_middle">
+        <form id="edit_playlist_form" action="" method="post" onsubmit="return false;">
+          <div class="create_account_input_div">
+                <label class="create_account_label" for="edit_playlist_name">Name:</label>
+                <input type="text" id="edit_playlist_name" class="large_input_text" value="<%= playlist.name %>"/>
+                <div class="clear"></div>
+            </div>
+            <div class="create_account_input_div">
+                <label class="create_account_label" for="edit_playlist_desrc">Description:</label>
+                <input type="text" id="edit_playlist_desrc" class="large_input_text" value="<%= playlist.descr %>"/>
+                <div class="clear"></div>
+            </div>
+          <div class="settings_profile_item" style="width:400px">
+            <div class="create_account_label" style="width:84px;">Cover Image:</div>
+            <iframe id="playlist_cover_uploader_iframe" src="' + player_root + 'playlist_cover.php?id=<%= playlist.playlist_id %>" width="306" height="76" frameborder="0" SCROLLING="NO"></iframe>
+          </div>
+            <input type="hidden" id="edit_playlist_id" class="large_input_text" value="<%= playlist.playlist_id %>"/>
+            <input type="submit" class="hidden" />
+        </form>
+        <div class="input_message" id="edit_playlist_message"></div>
+    <div class="modal_bottom_button generic_button" id="edit_playlist_button">Save Changes</div>
+    <br class="clear" />
+    </div>
+</div>

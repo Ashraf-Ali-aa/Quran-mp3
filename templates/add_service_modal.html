@@ -1,0 +1,13 @@
+<div id="add_service_modal_middle">
+    <div id="add_service_text">Awesome that you want to share this audio! <br />Please choose the social service you want to share with <%= Utils.Capitalize(service) %>.</div>
+    <div class="create_account_oauth button_icon create_account_<%= service %>" service="<%= service %>">Connect <%= Utils.Capitalize(service) %></div>
+    <div class="clear"></div>
+    <div id="add_service_loading" class="display_none"></div>
+</div>
+<div class="clear"></div>
+<div id="add_service_modal_success" class="display_none">
+    <div id="share_box_middle_success" class="display_none">
+        <div id="add_service_modal_middle_success">Audio shared!</div>
+        <a id="share_box_middle_success_link" href="" target="_blank" outbound_type="share_box_success">some long link here</a>    
+    </div>
+</div>

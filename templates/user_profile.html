@@ -1,0 +1,50 @@
+<div id="audio_top">
+    <div class="audio_top_info">
+<% if (Utils.HasValue(location) == true){ %>
+    <div id="audio_top_info_item_location" class="audio_top_info_item" title="<%= location %>"><%= location %></div>
+<% } %>
+<% if (Utils.HasValue(website) == true){ %>
+    <div id="audio_top_info_item_website" class="audio_top_info_item" title="<%= website %>">
+        <a href="<%= website %>" target="_blank"outbound_type="user_bio_website"><%= Utils.CleanHref(website) %></a>
+    </div>
+<% } %>
+    </div>
+    <div class="audio_top_avatar">
+        <img src="<% if(image.medium) { %> <%= image.medium %> <% }else{ %>/static/users/avatar_medium_default.png<% } %>" width="75" height="75" id="audio_top_avatar_img" />
+    </div>
+    <div class="audio_top_text">
+        <div id="audio_top_username" class="audio_top_username">
+        <% if (Utils.HasValue(name) == true){ %>
+            <%= name %>
+            <span class="audio_top_name" title="<%= username %>"><%= username %></span>
+        <% } else { %>
+            <%= username %>
+        <% } %>
+        </div>
+        <div class="audio_top_bio"><%= Utils.BlankUndefined(Utils.trimString(bio, 100)) %></div>
+        <div class="audio_top_play_all button_icon">Play All</div>
+    <% if (loggedInUser != null && loggedInUser.username == username){ %>
+        <a class="audio_top_edit_profile" href="/settings/profile">Edit your profile ></a>
+    <% } else { %>
+    <% if (viewer_following == true){ %>
+        <div class="audio_top_follow_button follow_button following button_icon" username="<%= username %>">Following</div>
+    <% } else { %>
+        <div class="audio_top_follow_button follow_button follow button_icon" username="<%= username %>">Follow</div>
+    <% } %>
+    <% } %>
+    </div>
+</div>
+<div class="audio_tabs" owner="<%= username %>">
+  <div class="audio_tabs_wrapper">
+      <a href="/<%= username %>" class="audio_tab audio_tab_audios">Loved <span class="audio_tab_number"><%= total_loved %></span></a>
+      <a href="/<%= username %>/feed" class="audio_tab audio_tab_feed">Feed</a>
+      <a href="/<%= username %>/followers" class="audio_tab audio_tab_followers">Followers <span class="audio_tab_number"><%= total_followers %></span></a>
+    <% if (loggedInUser && loggedInUser.username == username){ %>
+        <a href="/<%= username %>/following" class="audio_tab audio_tab_following">Following <span class="audio_tab_number" id="audio_tab_number_following"><%= total_following %></span></a>
+    <% } else { %>
+     <a href="/<%= username %>/following" class="audio_tab audio_tab_following">Following <span class="audio_tab_number"><%= total_following %></span></a>
+    <% } %>
+      <a href="/<%= username %>/playlist" class="audio_tab audio_tab_playlist">Playlist <span class="audio_tab_number"><%= total_playlist %></span></a>
+  </div>
+</div>
+<div id="item_rows"></div>

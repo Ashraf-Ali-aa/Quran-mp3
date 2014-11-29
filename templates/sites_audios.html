@@ -1,0 +1,20 @@
+<div class="audio_history_pane_bottom_row audio_history_pane_bottom_row_audio <%= (position % 2 == 0) %>" position="<%= position %>">
+    <div class="audio_history_play_button audio_history_audio_bottom_item audio_play_<%= audio.domainkey %>">&nbsp;</div>
+    <a class="audio_history_audiotitle audio_history_audio_bottom_item" title="<%= audio.title %>" href="/audio/<%= audio.id %>"><%= audio.title %></a>
+    <a class="audio_history_artist audio_history_audio_bottom_item" title="<%= audio.artist %>" href="/search/<%= audio.artist.replace(/ /g, "+") %>"><%= audio.artist %></a>
+    <div class="audio_history_album audio_history_audio_bottom_item" title="<%= audio.album %>"><%= audio.album %></div>
+    <div class="audio_history_site audio_history_audio_bottom_item">
+        <a class="audio_history_site_link" href="<%= audio.source %>" target="_blank" outbound_type="sites_audio_source"><%= Utils.CleanHref(audio.source) %></a>
+    </div>
+
+    <% var date = new Date(audio.timestamp); %>
+    <% var dateString = date.getMonth()+1+\'/\'+date.getDate()+\'/\'+date.getFullYear().toString().substr(2)+\' \'+Utils.To12Hour(date.getHours())+\':\'+Utils.FixZeroes(date.getMinutes())+\' \'+Utils.AMPM(date.getHours()); %>
+
+    <div class="audio_history_date audio_history_audio_bottom_item"><%= dateString %></div>
+    <% if (audio.viewer_love == null){ %>
+        <div class="audio_history_loved audio_history_loved_bottom audio_history_audio_bottom_item audio_view_love_<%= audio.id %>"></div>
+    <% } else { %>
+        <div class="audio_history_loved audio_history_loved_bottom audio_history_audio_bottom_item on audio_view_love_<%= audio.id %>"></div>
+    <% } %>
+    <br class="clear" />
+</div>

@@ -1,0 +1,149 @@
+#Goddady host fixed
+#Options +FollowSymLinks
+#Options -Multiviews
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteEngine On
+
+Header set Access-Control-Allow-Origin "*"
+
+RewriteRule ^social/facebook(/?)+$  social/facebook.php [L]
+
+RewriteRule ^social/twitter(/?)+$  social/twitter.php [L]
+
+RewriteRule ^create-account/facebook(/?)+$ https://www.facebook.com/dialog/permissions.request?app_id=3274589414&display=page&next=http:///social/facebook&response_type=code&fbconnect=1&perms=publish_stream,offline_access,read_stream,email,publish_actions [L]
+
+RewriteRule ^create-account/twitter(/?)+$ social/twitter.php [L]
+
+RewriteRule ^connect/twitter(/?)+$ social/twitter.php [L]
+
+RewriteRule ^connect/facebook(/?)+$ https://www.facebook.com/dialog/permissions.request?app_id=4589414&display=page&next=http:///social/facebook&response_type=code&fbconnect=1&perms=publish_stream,offline_access,read_stream,email,publish_actions [L]
+
+RewriteRule ^register(/?)+$ register.php [L]
+
+RewriteRule ^register/facebook(/?)+$ register.php?social=facebook [L]
+
+RewriteRule ^register/twitter(/?)+$ register.php?social=twitter [L]
+
+RewriteRule ^search/([^/]*)(/?)+$ seo.php?type=search&keyword=$1 [L]
+
+RewriteRule ^search/([^/]*)/page/([0-9]+)(/?)+$ seo.php?type=search&keyword=$1&page=$2 [L]
+
+RewriteRule ^sign-out(/?)+$ index.php?action=logout [L]
+
+RewriteRule ^settings(/?)+$ seo.php [L]
+
+RewriteRule ^settings/([^/]*)(/?)+$ seo.php [L]
+
+RewriteRule ^explore(/?)+$ seo.php?type=explore&action=$1 [L]
+
+RewriteRule ^explore/([^/]*)(/?)+$ seo.php?type=explore&action=$1 [L]
+
+RewriteRule ^trending/([^/]*)(/?)+$ seo.php [L]
+
+RewriteRule ^trending(/?)+$ seo.php?type=trending [L]
+
+RewriteRule ^audio/([^/]*)(/?)+$ seo.php?type=audio&id=$1 [L]
+RewriteRule ^video/([^/]*)(/?)+$ seo.php?type=video&id=$1 [L]
+
+RewriteRule ^playlist/([0-9]+)(/?)+$ seo.php [L]
+RewriteRule ^artist/([0-9]+)(/?)+$ seo.php [L]
+RewriteRule ^artists/([A-Z]+)(/?)+$ seo.php [L]
+RewriteRule ^album/([0-9]+)(/?)+$ seo.php [L]
+RewriteRule ^albums/([^/]*)(/?)+$ seo.php [L]
+RewriteRule ^composer/([^/]*)(/?)+$ seo.php [L]
+RewriteRule ^tutorial/([^/]*)(/?)+$ seo.php [L]
+
+RewriteRule ^([a-zA-Z0-9_-]+)/playlist(/?)$ seo.php [L]
+RewriteRule ^([a-zA-Z0-9_-]+)(/?)$ seo.php?type=user&username=$1 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)(/?)$ seo.php?type=user&username=$1 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)(/?)$ seo.php?type=user&username=$1 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/feed(/?)$ seo.php [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/following(/?)$ seo.php [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/followers(/?)$ seo.php [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/feed(/?)$ seo.php [L]
+
+AddType application/x-font-woff .woff
+AddType text/cache-manifest .appcache
+
+
+
+####################
+# API URL Rewrites #
+####################
+
+RewriteRule ^api/search/([^/]*)(/?)+$ more.php?t=search&q=$1&start=0&results=20 [L]
+RewriteRule ^api/search/([^/]*)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=search&q=$1&start=$2&results=$3 [L]
+
+RewriteRule ^api/genres(/?)+$ more.php?t=genres [L]
+RewriteRule ^api/genre/([^/]*)(/?)+$ more.php?t=genre&name=$1&start=0&results=20 [L]
+RewriteRule ^api/genre/([^/]*)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=genre&name=$1&start=$2&results=$3 [L]
+
+RewriteRule ^api/week(/?)+$ more.php?t=aotw&start=0&results=1 [L]
+#RewriteRule ^api/week(/?)+$ more.php?t=aotw&start=0&results=1 [L]
+#http://quran.deen-ul-islam.org/more.php?t=now_playing&audioid=20031
+
+             
+RewriteRule ^api/sign-out(/?)+$ index.php?action=logout [L]
+             
+RewriteRule ^api/settings(/?)+$ more.php [L]
+             
+RewriteRule ^api/settings/([^/]*)(/?)+$ more.php [L]
+             
+RewriteRule ^api/explore(/?)+$ more.php?t=explore&action=$1 [L]
+             
+RewriteRule ^api/explore/([^/]*)(/?)+$ more.php?t=explore&action=$1 [L]
+             
+
+             
+RewriteRule ^api/trending(/?)+$ more.php?t=trending&genre=&start=0&results=19 [L]
+RewriteRule ^api/trending/([0-9]+)/([0-9]+)(/?)+$ more.php?t=trending&genre=&start=$2&results=$3 [L]
+RewriteRule ^api/trending/([^/]*)(/?)+$ more.php?t=trending&genre=$1&start=0&results=19 [L]
+RewriteRule ^api/trending/([^/]*)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=trending&genre=$1&start=$2&results=$3 [L]
+        
+RewriteRule ^api/audio/([^/]*)(/?)+$ more.php?t=audio&audioid=$1 [L]
+RewriteRule ^api/video/([^/]*)(/?)+$ more.php?t=video&videoid=$1 [L]
+
+RewriteRule ^api/artist/info/([0-9]+)(/?)+$ more.php?t=artist&action=info&id=$1 [L]
+RewriteRule ^api/artist/albums/([0-9]+)(/?)+$ more.php?t=artistallalbum&id=$1 [L]
+RewriteRule ^api/artist/([0-9]+)(/?)+$ more.php?t=artist&action=audios&id=$1&start=0&results=20 [L]
+RewriteRule ^api/artist/([0-9]+)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=artist&action=audios&id=$1&start=$2&results=$3 [L]
+RewriteRule ^api/artists(/?)+$ more.php?t=artistlist [L]
+RewriteRule ^api/artists/([^/]*)(/?)+$ more.php?t=artistlist&letter=$1 [L]
+
+RewriteRule ^api/album/info/([0-9]+)(/?)+$ more.php?t=album&action=info&id=$1 [L]
+RewriteRule ^api/album/([0-9]+)(/?)+$ more.php?t=album&action=audios&id=$1&start=0&results=20 [L]
+RewriteRule ^api/album/([0-9]+)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=album&action=audios&id=$1&start=$2&results=$3 [L]
+RewriteRule ^api/albums(/?)+$ more.php?t=albumlist [L]
+RewriteRule ^api/albums/([^/]*)(/?)+$ more.php?t=albumlist&letter=$1 [L]
+
+RewriteRule ^api/playlist/info/([0-9]+)(/?)+$ more.php?t=playlist&action=info&id=$1 [L]
+RewriteRule ^api/playlist/([0-9]+)(/?)+$ more.php?t=playlist&action=audios&id=$1&start=0&results=20 [L]
+RewriteRule ^api/playlist/([0-9]+)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=playlist&action=audios&id=$1&start=$2&results=$3 [L]
+
+RewriteRule ^api/featured(/?)+$ more.php?t=aotw&start=0&results=1 [L]
+RewriteRule ^api/featured/([^/]*)/([^/]*)(/?)+$ more.php?t=aotw&start=$1&results=$2 [L]
+
+RewriteRule ^api/top/([^/]*)(/?)+$ more.php?t=top&date=the-$1&start=0&results=20 [L]
+RewriteRule ^api/top/([^/]*)/([^/]*)/([^/]*)(/?)+$ more.php?t=top&date=the-$1&start=$2&results=$3 [L]
+RewriteRule ^api/top/all(/?)+$ more.php?t=top&date=all-time&start=0&results=20 [L]
+RewriteRule ^api/top/all/([^/]*)/([^/]*)(/?)+$ more.php?t=top&date=all-time&start=$2&results=$3 [L]
+
+RewriteRule ^api/composer/([^/]*)(/?)+$ more.php [L]
+RewriteRule ^api/tutorial/([^/]*)(/?)+$ more.php [L]
+
+RewriteRule ^api/user/([^/]+)(/?)+$ more.php?t=member&username=$1 [L]
+RewriteRule ^api/user/([^/]*)/([^/]+)(/?)+$ more.php?t=member&username=$1&action=$2&start=0&results=20 [L]
+RewriteRule ^api/user/([^/]+)/([^/]+)/([0-9]+)/([0-9]+)(/?)+$ more.php?t=member&username=$1&action=$2&start=$3&results=$4 [L]
+
+RewriteRule ^api/gem(/?)+$ more.php?t=member&action=tastemakers&?start=0&results=100 [L]
+RewriteRule ^api/gem/([0-9]+)/([0-9]+)(/?)+$ more.php?t=member&action=tastemakers&?start=$1&results=$2 [L]
+
+RewriteRule ^api/gems/like(/?)+$ more.php?t=member&username=tastemakers&action=feedlove&start=0&results=20 [L]
+RewriteRule ^api/gems/like/([0-9]+)/([0-9]+)(/?)+$ more.php?t=member&username=tastemakers&action=feedlove&start=$1&results=$2 [L]
+
+RewriteRule ^api/latest/liked(/?)+$ more.php?t=last_loved&start=0&results=20 [L]
+RewriteRule ^api/latest/liked/([^/]*)/([^/]*)(/?)+$ more.php?t=last_loved&start=$1&results=$2 [L]

@@ -1,0 +1,11 @@
+<div class="<%= classname %>_audio">
+	<a class="<%= classname %>_audio_albumart" href="/audio/<%= id %>" style="background-image:url(<%= image.medium %>);"></a>
+	<div class="<%= classname %>_audio_meta">
+		<a href="/audio/<%= id %>" class="<%= classname %>_audio_title"><%= title %></a>
+		<% if (Utils.HasValue(artist) == true) { %>
+		<div class="<%= classname %>_audio_artist">
+			<span class="meta_descriptor">by </span><%= artist %>
+		</div>
+		<% } %>
+	<div>
+<div>

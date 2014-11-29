@@ -1,0 +1,28 @@
+<div id="share_box" class="modal_box">
+<div class="modal_close_button" id="share_box_close_button"></div>
+    <div class="modal_top">Share</div>
+    <div id="share_box_middle" class="modal_middle">
+        <div id="share_box_audio">
+            <div id="share_box_coverart" style="<%= Utils.GetCoverArt(audio.image.small, \'45x45\') %>"></div>
+            <div id="share_box_metadata">
+                <div id="share_box_title"><%= audio.title %></div>
+                <div id="share_box_artist"><%= audio.artist %></div>
+            </div>
+        </div>
+        <textarea id="share_box_textarea" placeholder="type a message (optional)"></textarea>
+    <div id="share_box_count"></div>
+    </div>
+    <div class="modal_bottom" id="share_box_bottom">
+    <div id="share_box_choose">
+      <div id="share_box_choose_text">Share with:</div>
+      <div id="share_box_icon_twitter" class="share_box_icon tooltip" tooltip="Twitter"></div>
+      <div id="share_box_icon_facebook" class="share_box_icon tooltip" tooltip="Facebook"></div>
+    </div>
+    <div class="modal_bottom_button generic_button" id="share_button">Share</div>
+    <br class="clear" />
+        <div id="share_box_middle_error" class="display_none">There was an error sharing your audio. Please try again.</div>
+        <div id="share_box_middle_success" class="display_none">
+            <a id="share_box_middle_success_link" href="" target="_blank" outbound_type="share_box_success"></a>    
+        </div>
+    </div>
+</div>

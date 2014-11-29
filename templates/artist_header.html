@@ -1,0 +1,23 @@
+<div id="audio_top" style="height:165px;">
+  <div class="audio_top_avatar" style="width:120px;height:120px"> <img src="'+player_root+'static/artists/<%= id %>_large.jpg" width="120px" height="120px" id="playlist_top_cover_img" /> </div>
+  <div class="audio_top_text">
+    <div id="audio_top_username" class="playlist_page_title">
+      <div id="playlist_name"><%= name %></div>
+    </div>
+    <div class="playlist_top_bio" id="playlist_descr"><%= bio %></div>
+
+  </div>
+</div>
+<div id="artist_albums_content">
+
+  <div class="artist_albums_content_header">
+  <span>Total Albums <span class="albums_count"></span></span> 
+  <span class="button button_small show_all show_all_albums">Show all</span>
+</div>
+  
+  <div id="artist_albums"></div></div>
+</div>
+
+</div>
+<div style="background: none repeat scroll 0 0 #FEFEFE;border-radius: 5px;box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);margin: 10px auto;padding: 10px;width: 760px;"><div class="fb-comments" data-href="<%= player_root %>/artist/<%= id %>" data-width="760" data-num-posts="10"></div></div>      
+

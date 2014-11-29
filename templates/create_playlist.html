@@ -1,0 +1,26 @@
+<div id="create_playlist_box" class="modal_box">
+    <div class="modal_close_button" id="create_playlist_close_button"></div>
+    <div class="modal_top">Create playlist</div>
+    <div id="create_account_box_middle" class="modal_middle">
+        <form id="create_playlist_form" action="" method="post" onsubmit="return false;">
+          <div class="create_account_input_div">
+                <label class="create_account_label" for="create_playlist_name">Name:</label>
+                <input type="text" id="create_playlist_name" class="large_input_text" />
+                <div class="clear"></div>
+            </div>
+            <div class="create_account_input_div">
+                <label class="create_account_label" for="create_playlist_desrc">Description:</label>
+                <input type="text" id="create_playlist_desrc" class="large_input_text" />
+                <div class="clear"></div>
+            </div>
+          <div class="settings_profile_item" style="width:0;height:0">
+            <div class="create_account_label" style="width:0;display:none;">Cover Image:</div>
+            <iframe id="playlist_cover_uploader_iframe" src="' + player_root + 'playlist_cover.php" width="0" height="0" frameborder="0" SCROLLING="NO"></iframe>
+          </div>
+            <input type="submit" class="hidden" />
+        </form>
+        <div class="input_message" id="create_playlist_message"></div>
+    <div class="modal_bottom_button generic_button" id="create_playlist_button">Create playlist</div>
+    <br class="clear" />
+    </div>
+</div>

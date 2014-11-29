@@ -1,0 +1,8 @@
+<% if (audio.viewer_love != null){ %>
+    <div class="explore_content_album_of_week_audio_love explore_audiolist_love audio_view_love audio_view_love_<%= audio.id %> on"></div>
+<% } else { %>
+    <div class="explore_content_album_of_week_audio_love explore_audiolist_love audio_view_love audio_view_love_<%= audio.id %>"></div>
+<% } %>
+<div class="explore_content_album_of_week_audio_play explore_audiolist_play audio_view_play_button"></div>
+<a href="/audio/<%= audio.id %>" class="explore_content_album_of_week_audio_title explore_audiolist_title"><%= audio.title %></a>
+

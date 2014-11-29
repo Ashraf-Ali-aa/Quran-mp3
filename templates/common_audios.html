@@ -1,0 +1,73 @@
+<% if (audio.show_user == true && audio.user_love != null){ %>
+    <div class="audio_row_action">
+    <a href="/<%= audio.user_love.username %>">
+      <span class="audio_row_action_avatar" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= audio.user_love.username %>.jpg);"></span>
+      <span class="audio_row_username"><%= audio.user_love.username %></span>
+    </a>
+  </div>
+<% } %>
+    <div class="audio_row_cover_art" style="<%= Utils.GetCoverArt(audio.image.small, \'75x75\') %>">
+        <div class="audio_row_play_button audio_view_play_button"></div>
+        <img src="' + player_root + '/assets/images/glare_75x75.png" width="75" height="75">
+    </div>
+  <div class="audio_row_box">
+      <div class="audio_row_metadata">
+          <a href="/audio/<%= audio.id %>" class="audio_row_title audio_row_meta_text"><%= audio.title %></a>
+          <div class="audio_row_artist audio_row_meta_text"><a href="/search/<%= Utils.BlankUndefined(audio.artist).replace(/ /g, "+") %>"><%= Utils.BlankUndefined(audio.artist) %></a>
+                    </div>
+          <div class="audio_row_via audio_row_meta_text">
+              <% if (Utils.HasValue(audio.album) == true) { %>
+              <span class="audio_row_album audio_row_meta_text"><a href="/search/<%= Utils.BlankUndefined(audio.album).replace(/ /g, "+") %>"><%= audio.album %></a></span>
+          <% } %>
+              <% if (audio.user_love != null){ %>
+            <span class="audio_row_time"> <%= Utils.PrettyDate(audio.user_love.created_on) %> </span>
+        <% } %>
+          </div>
+      </div>
+    <div class="audio_actions">
+      <% if (audio.viewer_love != null){ %>
+          <div class="audio_action audio_action_love audio_view_love audio_view_love_<%= audio.id %> on tooltip" tooltip="Loved"></div>
+      <% } else { %>
+          <div class="audio_action audio_action_love audio_view_love audio_view_love_<%= audio.id %> tooltip" tooltip="Add this audio"></div>
+      <% } %>
+            <div class="audio_action audio_action_queue audio_view_queue tooltip" tooltip="Add to Queue"></div>
+          <div class="audio_action audio_action_share audio_view_share tooltip" tooltip="Share this audio"></div>
+          <!-- <a href="<%= audio.buy_link %>" target="_blank" class="audio_action audio_action_buy tooltip" tooltip="Buy This Audio"></a> -->
+      </div>
+  </div>
+
+    <div class="audio_row_recent_loves">
+    <div class="recent_loves_box">
+    <% if(audio.recent_loves!=null) var others_count = audio.recent_loves.length; else  others_count=0; %>
+  <% if (audio.show_user_in_others == true){ %>
+        <% if (audio.user_love != null){ %>
+            <a class="audio_row_recent_loves_avatars" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= audio.user_love.username %>.jpg);" href="/<%= audio.user_love.username %>"><span><%= audio.user_love.username %> &ndash; <%= Utils.PrettyDate(audio.user_love.created_on) %></span></a>
+            <% others_count++; %>
+        <% } %>
+    <% } %>
+        <% if(audio.user_love==null) var user_love_username = ""; else var user_love_username = audio.user_love.username; if (audio.viewer_love != null && audio.viewer_love.username != user_love_username){ %>
+            <a class="audio_row_recent_loves_avatars" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= audio.viewer_love.username %>.jpg);" href="/<%= audio.viewer_love.username %>"><span><%= audio.viewer_love.username %> &ndash; <%= Utils.PrettyDate(audio.viewer_love.created_on) %></span></a>
+            <% others_count++; %>
+        <% } %>
+        <% if(audio.recent_loves != null) { var loves_len = audio.recent_loves.length; %>
+        <% if (audio.recent_loves.length > 10){ %>
+            <% loves_len = 10; %>
+        <% } %>
+        <% for(var i=0; i < loves_len; i++){ if(audio.recent_loves[i].username){ %>
+          <a class="audio_row_recent_loves_avatars" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= audio.recent_loves[i].username %>.jpg);" href="/<%= audio.recent_loves[i].username %>"><span><%= audio.recent_loves[i].username %> &ndash; <%= Utils.PrettyDate(audio.recent_loves[i].created_on) %></span></a>
+      <% } } } %>
+         <br class="clear" />
+     <% if (others_count > 0){ %>
+         <% if (audio.show_user_in_others == false){ %>
+             <a href="/audio/<%= audio.id %>" class="audio_row_recent_loves_text"><em><%= others_count %></em> more <%= others_count  == 1 ? \'love\' : \'loves\' %></a>
+         <% } else { %>
+             <a href="/audio/<%= audio.id %>" class="audio_row_recent_loves_text"><em><%= others_count %></em> <%= others_count  == 1 ? \'love\' : \'loves\' %></a>
+         <% } %>
+     <% } %>
+        </div>
+  </div>
+<% if (audio.user_love != null){ %>
+<% if (Utils.HasValue(audio.user_love.comment) == true){ %>
+    <div class="audio_row_comment"><%= Utils.trimString(audio.user_love.comment, 95) %></div>
+<% } %>
+<% } %>

@@ -1,0 +1,38 @@
+<div class="settings_description">
+     Tell folks on AltSounds LISTEN a little bit about yourself.
+    <br /><br />
+     All information entered here will be viewable on your public profile.
+</div>
+<div class="settings_profile_left">
+    <div class="settings_profile_section">
+        <div class="settings_profile_item">
+          <div class="settings_profile_label">Avatar:</div>
+            <iframe id="settings_profile_uploader_iframe" src="' + player_root + 'upload.php" width="240" height="100" frameborder="0" SCROLLING="NO"></iframe>
+        </div>
+        <div class="settings_profile_item">
+          <div class="settings_profile_label">Full name:</div>
+            <input id="settings_profile_name" type="text" class="large_input_text" value="<%= user.name %>" />
+            <div class="settings_profile_description">Enter your name, so people you know can recognize you.</div>
+        </div>
+        <div class="settings_profile_item">
+          <div class="settings_profile_label">Location:</div>
+            <input id="settings_profile_location" type="text" class="large_input_text" value="<%= user.location %>" />
+            <div class="settings_profile_description">Where in the world are you?</div>
+        </div>
+        <div class="settings_profile_item">
+          <div class="settings_profile_label">Website:</div>
+            <input id="settings_profile_website" type="text" class="large_input_text" value="<%= user.website %>" />
+            <div class="settings_profile_description">Have your own website or blog? Put that link here.</div>
+        </div>
+        <div class="settings_profile_item">
+          <div class="settings_profile_label">Bio:</div>
+            <textarea id="settings_profile_bio" type="text" class="large_input_text"><%= user.bio %></textarea>
+            <div class="settings_profile_description">Tell other AltSounds LISTENers about you (100 characters or less).</div>
+        </div>
+    </div>
+    <div class="settings_profile_item">
+        <div id="setting_profile_save_button" class="generic_button">
+            <div class="loader_small display_none" id="setting_profile_save_green_check"></div>Save changes
+        </div>
+    </div>
+</div>

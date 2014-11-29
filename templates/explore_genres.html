@@ -1,0 +1,15 @@
+<div class="explore_section explore_genres" id="explore_genres">
+  <div class="explore_section_wrapper">
+    <div class="explore_section_header">
+      <div class="explore_header_wrapper">
+        <div class="explore_header">Browse by Genre</div>
+        <div class="explore_description">Great music automatically filtered by genre for you.</div>
+      </div>
+    </div>
+    <div class="explore_content" id="explore_content_genres">
+        <% _.each(genres, function(genre){ %>
+            <a id="genre_<%= genre %>" href="/explore/<%= genre %>" class="explore_content_genre"><span class="genre_bg"></span><span class="genre_txt"><%= genre %></span></a>
+        <% }); %>
+    </div>
+  </div>
+</div>

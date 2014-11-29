@@ -1,0 +1,22 @@
+<% if (playlist.show_user == true && playlist.owner != null){ %>
+    <div class="audio_row_action">
+    <a href="/<%= playlist.owner.username %>">
+      <span class="audio_row_action_avatar" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= playlist.owner.username %>.jpg);"></span>
+      <span class="audio_row_username"><%= playlist.owner.username %></span>
+    </a>
+  </div>
+<% } %>
+        <div class="audio_row_cover_art" <% if (playlist.cover == 0){ %> style="background-image:url('+player_root+'static/playlists/default.png)"<% } else { %> style="background-image:url('+player_root+'static/playlists/<%= playlist.playlist_id %>.jpg)"<% } %>>
+          <a href="/viewplaylist/<%= playlist.playlist_id %>"><img src="' + player_root + '/assets/images/glare_75x75.png" width="75" height="75"></a>
+    </div>
+  <div class="audio_row_box">
+      <div class="audio_row_metadata">
+          <a href="/viewplaylist/<%= playlist.playlist_id %>" class="audio_row_title audio_row_meta_text"><%= playlist.title %></a>
+          <div class="audio_row_via audio_row_meta_text">
+              <% if (Utils.HasValue(playlist.descr) == true) { %>
+              <span class="audio_row_album audio_row_meta_text"><%= playlist.descr %></span>
+          <% } %>
+            <span class="audio_row_time"> <%= Utils.PrettyDate(playlist.created_on) %> </span>
+          </div>
+      </div>
+  </div>

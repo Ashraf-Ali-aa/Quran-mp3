@@ -1,0 +1,19 @@
+<div class="user_row_list <%= !(position % 2 == 0) %>">
+    <div class="user_row_list_avatar" style="background-image:url(<%= user.image.small %>);">
+        <% if (Utils.HasValue(user.following_on) == true){ %>
+            <div class="user_following_on <%= user.following_on %>"></div>
+        <% } %>
+    </div>
+    <div class="user_row_list_account">
+      <span class="user_row_list_username"><%= user.username %></span>
+    <% if (Utils.HasValue(user.name) == true){ %>
+        <span class="user_row_list_name"><%= user.name %></span>
+    <% } %>
+    </div>
+<% if (user.viewer_following == true){ %>
+    <div class="user_row_list_follow_button follow_button following button_icon" username="<%= user.username %>">Following</div>
+<% } else { %>
+    <div class="user_row_list_follow_button follow_button follow button_icon" username="<%= user.username %>">Follow</div>
+<% } %>
+  <br class="clear" />
+</div>

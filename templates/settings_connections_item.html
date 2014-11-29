@@ -1,0 +1,32 @@
+<% if (service != null){ %>
+<div class="connection_item" id="connection_item_<%= name %>" lookup_id="<%= service.lookup_id %>">
+    <div class="connection_logo" id="<%= name %>_logo"></div>
+    <div class="connection_image" id="<%= name %>_image" style="background-image: url(<%= service.pic %>);"></div>
+<% } else { %>
+<div class="connection_item" id="connection_item_<%= name %>">
+    <div class="connection_logo" id="<%= name %>_logo"></div>
+    <div class="connection_image" id="<%= name %>_image"></div>
+<% } %>
+    <div class="connection_login" id="<%= name %>_login">
+    <% if (service != null){ %>
+        <div class="connection_logged_in_as">Linked to:
+            <em><%= service.name %></em>
+        </div>
+        <button class="connection_logout_button generic_button" service="<%= name %>" id="<%= name %>_logout_button">Disconnect</button>
+        <% if (name == "tumblr"){ %>
+            <div class="connection_checkbox">
+                <label for="tumblr_auto_love">Auto love audios I post to Tumblr</label>
+                <% if (import_feed == true){ %>
+                    <input type="checkbox" id="tumblr_auto_love" checked="checked" />
+                <% } else { %>
+                    <input type="checkbox" id="tumblr_auto_love" />
+                <% } %>
+            </div>
+        <% } %>
+    <% } else { %>
+        <button id="<%= name %>_authorize_button" class="connection_login_button generic_button" service="<%= name %>">Connect</button>
+        <div class="connection_loader" id="<%= name %>_loader"></div>
+    <% } %>
+    </div>
+    <div class="connection_description">Connect with <a href="<%= details.url %>" target="_blank" outbound_type="settings_connection"><%= Utils.Capitalize(name) %></a> <%= details.description %></div>
+</div>

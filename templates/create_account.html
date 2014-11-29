@@ -1,0 +1,32 @@
+<div id="create_account_box" class="modal_box">
+    <div class="modal_close_button" id="create_account_close_button"></div>
+    <div class="modal_top">Create account</div>
+    <div id="create_account_box_middle" class="modal_middle">
+        <form id="create_account_form" action="" method="post" onsubmit="return false;">
+            <div class="create_account_input_div">
+                <label class="create_account_label" for="create_account_username">Username:</label>
+                <input type="text" id="create_account_username" class="large_input_text" />
+                <div class="clear"></div>
+            </div>
+            <div class="create_account_input_div">
+                <label class="create_account_label" for="create_account_email">Email:</label>
+                <input type="text" id="create_account_email" class="large_input_text" />
+                <div class="clear"></div>
+            </div>
+            <div class="create_account_input_div">
+                <label class="create_account_label" for="create_account_password">Password:</label>
+                <input type="password" id="create_account_password" class="large_input_text" />
+                <div class="clear"></div>
+            </div>
+            <input type="submit" class="hidden" />
+        </form>
+        <div class="input_message" id="create_account_message"></div>
+    <div class="modal_bottom_button generic_button" id="create_account_button">Create account</div>
+    <br class="clear" />
+    <div id="create_account_oauth">
+      <div class="create_account_oauth button_icon create_account_facebook" service="facebook">Login with Facebook</div>
+      <div class="create_account_oauth button_icon create_account_twitter" service="twitter">Login with Twitter</div>
+      <br class="clear" />
+    </div>
+    </div>
+</div>

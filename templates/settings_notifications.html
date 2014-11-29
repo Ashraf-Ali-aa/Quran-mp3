@@ -1,0 +1,47 @@
+<div class="settings_description">
+    Manage the notifications sent to you by AltSounds LISTEN
+</div>
+<div class="settings_profile_left">
+    <div class="settings_profile_section">
+        <div class="settings_profile_header">Desktop</div>
+        <div class="settings_profile_item">
+    <% if (notifications_capable == true){ %>
+        <% if (show_audio_desktop_notification == true){ %>
+            <input id="settings_notifications_desktop_new_audio" type="checkbox" class="settings_notifications_checkbox" checked="checked" />
+        <% } else { %>
+            <input id="settings_notifications_desktop_new_audio" type="checkbox" class="settings_notifications_checkbox" />
+        <% } %>
+    <% } else { %>
+            <input id="settings_notifications_desktop_new_audio" type="checkbox" class="settings_notifications_checkbox" disabled="disabled" />
+    <% } %>
+            <label class="settings_notifications_description" for="settings_notifications_desktop_new_audio">Show a desktop notification when a new audio starts playing <em>(Chrome browser only)</em></label>
+        </div>
+        <br class="clear" />
+        <div class="settings_profile_item">
+    <% if (notifications_capable == true){ %>
+        <% if (show_love_desktop_notification == true){ %>
+            <input id="settings_notifications_desktop_love" type="checkbox" class="settings_notifications_checkbox" checked="checked" />
+        <% } else { %>
+            <input id="settings_notifications_desktop_love" type="checkbox" class="settings_notifications_checkbox" />
+        <% } %>
+    <% } else { %>
+            <input id="settings_notifications_desktop_love" type="checkbox" class="settings_notifications_checkbox" disabled="disabled" />
+    <% } %>
+            <label class="settings_notifications_description" for="settings_notifications_desktop_love">Show a desktop notification when someone you follow loves a audio <em>(Chrome browser only)</em></label>
+        </div>
+        <br class="clear" />
+        <div class="settings_profile_item">
+    <% if (notifications_capable == true){ %>
+        <% if (show_follower_desktop_notification == true){ %>
+            <input id="settings_notifications_desktop_follower" type="checkbox" class="settings_notifications_checkbox" checked="checked" />
+        <% } else { %>
+            <input id="settings_notifications_desktop_follower" type="checkbox" class="settings_notifications_checkbox" />
+        <% } %>
+    <% } else { %>
+            <input id="settings_notifications_desktop_follower" type="checkbox" class="settings_notifications_checkbox" disabled="disabled" />
+    <% } %>
+            <label class="settings_notifications_description" for="settings_notifications_desktop_follower">Show a desktop notification when someone follows you <em>(Chrome browser only)</em></label>
+        </div>
+        <br class="clear" />
+    </div>
+</div>

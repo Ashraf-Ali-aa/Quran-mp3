@@ -1,0 +1,29 @@
+<div class="user_row <%= !(position % 2 == 0) %>">
+    <div class="user_row_avatar">
+        <a href="/<%= user.username %>" style="background-image:url(<%= user.image.medium %>)" class="user_row_avatar_link">
+            <% if (Utils.HasValue(user.following_on) == true){ %>
+            <span class="user_following_on <%= user.following_on %>"></span>
+            <% } %>
+        </a>
+    </div>
+    <div class="user_row_info">
+        <div class="user_row_username">
+            <a href="/<%= user.username %>"><%= user.username %></a>
+        <% if (Utils.HasValue(user.name) == true){ %>
+            <span class="user_row_name"><%= user.name %></span>
+        <% } %>
+        </div>
+    <% if (Utils.HasValue(user.bio) == true){ %>
+        <div class="user_row_bio"><%= user.bio %></div>
+    <% } %>
+<% if (loggedInUser && loggedInUser.username != user.username){ %>
+    <% if (user.viewer_following == true){ %>
+        <div class="user_row_follow_button follow_button following button_icon"
+            username="<%= user.username %>">Following</div>
+    <% } else { %>
+        <div class="user_row_follow_button follow_button follow button_icon"
+            username="<%= user.username %>">Follow</div>
+    <% } %>
+<% } %>
+    </div>
+</div>

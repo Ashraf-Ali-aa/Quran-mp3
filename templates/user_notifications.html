@@ -1,0 +1,42 @@
+<% if (notification.object.verb == "relove"){ %>
+  <div class="user_notification_relove">
+    <a class="user_notification_avatar" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= notification.object.username %>.jpg);" href="/<%= notification.object.username %>">
+    </a>
+    <span class="user_notification_icon_love"></span>
+    <a class="user_notification_name" href="/<%= notification.object.username %>">
+    <% if (loggedInUser != null && loggedInUser.username == notification.object.username){ %>
+      you
+    <% } else { %>
+      <%= notification.object.username %>
+    <% } %>
+    </a>
+    loved
+      <a href="/audio/<%= notification.object.id %>"><%= notification.object.title %> by <%= notification.object.artist %></a>
+    <% if (loggedInUser != null && loggedInUser.username == notification.object.context){ %>
+      from you
+    <% } else { %>
+      from <%= notification.object.context %>
+    <% } %>
+  </div>
+<% } %>
+<% if (notification.object.verb == "follow"){ %>
+  <div class="user_notification_follow">
+    <a class="user_notification_avatar" style="background-image:url(<%= QMP3_AVATAR_HOST %>avatar_small_<%= notification.object.actor.username %>.jpg);" href="/<%= notification.object.actor.username %>">
+    </a>
+    <span class="user_notification_icon_follow"></span>
+    <a class="user_notification_name" href="/<%= notification.object.actor.username %>">
+    <% if (loggedInUser != null && loggedInUser.username == notification.object.actor.username){ %>
+      you
+    <% } else { %>
+      <%= notification.object.actor.username %>
+    <% } %>
+    </a>
+    started following
+    <% if (loggedInUser != null && loggedInUser.username == notification.object.username){ %>
+      you
+    <% } else { %>
+      <%= notification.object.username %>
+    <% } %>
+  </div>
+<% } %>
+<div class="user_notification_time"> <%= Utils.PrettyDate(notification.published) %>  </div>

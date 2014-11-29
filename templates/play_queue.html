@@ -1,0 +1,21 @@
+<li class="current_playlist_row <%= (position % 2 == 0) %>" position="<%= position %>">
+<% if (audio.viewer_love != null){ %>
+    <div class="current_playlist_love_icon on current_playlist_love_icon_<%= audio.id %>" title="Unlike for this audio"></div>
+<% } else { %>
+    <div class="current_playlist_love_icon current_playlist_love_icon_<%= audio.id %>" title="Like this audio"></div>
+<% } %>
+    <div class="current_playlist_draggy"></div>
+    <div title="Remove audio from queue" class="current_playlist_remove_icon"></div>
+    <div class="current_playlist_play_button" id="current_playlist_play_button_<%= position %>"></div>
+    <span class="current_playlist_audiotitle"><%= audio.title %></span>
+- 
+      <% if(audio.artists.length > 0){ %><% _.each(audio.artists, function(sa, i){
+                        if(audio.artists.length > 0 && sa != " "){
+              %><a href="/artist/<%= sa.id %>" class="current_playlist_artist"><%= sa.name %></a><% if (i<(audio.artists.length-1)) { %>, <% } %><%
+                        }
+                    });
+                %>
+
+            <% } %>
+  <a class="current_playlist_link" href="/audio/<%= audio.id %>"></a>
+</li>

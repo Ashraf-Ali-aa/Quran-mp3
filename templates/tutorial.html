@@ -1,0 +1,22 @@
+<div id="tutorial_header">
+  <div id="tutorial_header_text">Welcome to AltSounds LISTEN</div>
+  <div id="tutorial_close" class="modal_close_button"></div>
+</div>
+<div id="tutorial_middle">
+  
+</div>
+<div id="tutorial_bottom">
+
+    <a href="/tutorial/" class="tutorial_bottom_button generic_button display_none" id="tutorial_bottom_next">Next</a>
+
+
+  <div id="tutorial_carousel">
+    <% _.each(pages, function(k,v){ %>
+        <a href="/tutorial/<%= v+1 %>"></a>
+    <% }); %>
+
+  </div>
+
+    <a href="/tutorial/" class="tutorial_bottom_button generic_button display_none" id="tutorial_bottom_prev">Previous</a>
+
+</div>

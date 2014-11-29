@@ -1,0 +1,11 @@
+<a class="left_row" href="/playlist/<%= playlist_id %>" id="left_row_<%= playlist_id %>">
+    <span class="left_row_status" id="left_row_status_<%= playlist_id %>"></span>
+    <span class="left_row_icon">
+      <% if (cover == 0){ %> 
+        <img src="'+player_root+'static/playlists/default.png" width="24" height="24" />
+        <% } else { %>
+        <img src="'+player_root+'static/playlists/<%= playlist_id %>.jpg" width="24" height="24" />
+        <% } %>  
+    </span>
+    <span class="left_row_text_users"><%= name %></span>
+</a>

@@ -1,0 +1,52 @@
+<div class="trending_audio_overlay">
+  <div class="trending_audio_actions">
+    <div class="trending_share trending_audio_action audio_view_share tooltip" tooltip="Share"></div>
+    <div class="trending_queue trending_audio_action audio_view_queue tooltip" tooltip="Add to Queue / Playlist"></div>
+    <% if (viewer_love != null){ %>
+        <div class="trending_love trending_audio_action audio_view_love audio_view_love_<%= id %> on tooltip" tooltip="You Love This"></div>
+    <% } else { %>
+        <div class="trending_love trending_audio_action audio_view_love audio_view_love_<%= id %> tooltip" tooltip="Love This Audio"></div>
+    <% } %>
+      
+     <!-- <div class="trending_buy trending_audio_action trending_view_buy tooltip" tooltip="Buy this audio"></div> -->
+    </div>
+  <div class="trending_play_button audio_view_play_button"></div>
+</div>
+
+<div class="trending_audio_info">
+  <div class="trending_meta_basic">
+    <div class="trending_rank"><%= position < 9 ? \'0\' + Number(position + 1) : position+1 %></div>
+
+    <%
+      if(artist_image.extralarge.src != "' + player_root + '/assets/images/album_320x320.png"){
+    %>
+        <div class="trending_audio_albumart" style="background-image:url(<%= image.small %>);"></div>
+    <%
+      }
+    %>
+
+      <a class="trending_audio_title" href="/audio/<%= id %>"><%= title %></a>
+<% if(artists.length > 0){ %><% _.each(artists, function(sa, i){if(artists.length > 0 && sa != " "){%><a href="/artist/<%= sa.id %>" class="trending_audio_artist"><%= sa.name %></a><% if (i<(artists.length-1)) { %>, <% }}});} %>
+
+
+    <div class="clear"></div>
+  </div>
+  <div class="trending_expanded">
+      <div class="trending_loves">
+          <div class="trending_faces">
+          <% 
+            if(ordered_loves.length > 0){ 
+          ordered_loves.reverse();
+          _.each(ordered_loves, function(recent_love){
+      %>
+        <a href="/<%= recent_love.username %>" style="background-image:url('+QMP3_AVATAR_HOST+'avatar_small_<%= recent_love.username %>.jpg);" /></a>
+      <%
+           })
+        } 
+      %>
+
+          </div>
+      </div>
+  </div>
+</div>
+<div class="trending_audio_bg"></div>

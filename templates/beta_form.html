@@ -1,0 +1,23 @@
+<div id="beta_form_box" class="modal_box">
+    <div class="modal_top">AltSounds LISTEN Beta</div>
+    <div id="beta_form_middle" class="modal_middle">
+      <div id="beta_form_text">
+        We are currently testing this version of AltSounds LISTEN! If you\'d like to get early access and help us, please let us know below. Thanks!
+      </div>
+        <form id="sign_in_form" action="" method="post">
+            <div class="sign_in_input_div">
+                <label class="sign_in_label" for="beta_form_username">Account:</label>
+                <input type="text" id="beta_form_username" name="username" class="large_input_text" value="<%= user.username %>" />
+                <br class="clear" />
+                <br class="clear" />
+                <label class="sign_in_label" for="beta_form_email">Email:</label>
+                <input type="text" id="beta_form_email" name="email" class="large_input_text" value="<%= user.email %>" />
+                <br class="clear" />
+            </div>
+            <input type="submit" class="hidden" />
+      <div class="input_message" id="beta_form_message"></div>
+            <div class="modal_bottom_button generic_button button_icon" id="beta_form_button">Request Access</div>
+      <br class="clear" />
+        </form>
+    </div>
+</div>
