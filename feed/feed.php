@@ -1,7 +1,7 @@
 <?php
 
 @session_start();
-define( 'ROOT_DIR', dirname( __FILE__ ) );
+define( 'ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] );
 define( 'INCLUDE_DIR', ROOT_DIR . '/includes' );
 
 include      INCLUDE_DIR . '/config.inc.php';
@@ -1315,7 +1315,7 @@ if ($type == "top") {
             $location = $db->safesql ( $_POST ['location'] );
             $name     = $db->safesql ( $_POST ['name'] );
             $website  = $db->safesql ( $_POST ['website'] );
-            
+
             member_update_profile ($member_id, $bio, $location, $name, $website );
 
             $row = member_profile ( $username );
@@ -1375,7 +1375,7 @@ if ($type == "top") {
         if( ! $name ) die();
         else{
             playlist_insert ($member_id ['user_id'], $_TIME, $name, $descr );
-            
+
 
             $playlist_id = $db->insert_id();
 
@@ -1411,7 +1411,7 @@ if ($type == "top") {
         if( ! $name ) die();
         else{
             playlist_update ($member_id ['user_id'], $id, $name, $descr);
-            
+
             $buffer ['name']        = $name;
             $buffer ['descr']       = $descr;
             $buffer ['status_text'] = "OK";
@@ -1442,9 +1442,9 @@ if ($type == "top") {
 
             if(!empty($item)){
                 $item = $db->safesql($item);
-                
+
                 playlist_sort ($playlist_id, $item , $i );
-                
+
                 $i++;
             }
             $buffer ['status_text'] = "OK";
@@ -1468,7 +1468,7 @@ if ($type == "top") {
         if( ! $id ) die();
         else{
             playlist_remove ($member_id ['user_id'], $id );
-            
+
             $buffer ['playlist_id'] = $id;
             $buffer ['status_text'] = "OK";
             $buffer ['status_code'] = "200";
@@ -1503,9 +1503,9 @@ if ($type == "top") {
 
         if($audio_id && $playlist_id){
             playlist_add_audio ($playlist_id , $audio_id);
-        
+
         }
-         
+
         $buffer = array ("status_code" => 200,
             "status_text" => "OK");
 
@@ -1707,7 +1707,7 @@ if ($type == "top") {
             $object ['object'] ['descr']        = $row ['descr'];
             $object ['object'] ['created_on']   = date( 'D M d Y H:i:s O', strtotime( $row ['date'] ) );
             $object ['object'] ['owner']        = array ("username" => $row ['username'],
-                                                       "created_on" => date( 'D M d Y H:i:s O', strtotime( $row ['created_on'] ) ) );
+                "created_on" => date( 'D M d Y H:i:s O', strtotime( $row ['created_on'] ) ) );
 
             $activities [] = $object;
 
@@ -1737,7 +1737,7 @@ if ($type == "top") {
 
         $id = intval( $_REQUEST ['id'] );
 
-        $row = $db->super_query ( "SELECT id AS artist_id, name, bio FROM vass_artists WHERE id = '" . $id . "';" );
+        $row = artist_id ($id );
 
         $artist = $row;
 
@@ -1749,14 +1749,8 @@ if ($type == "top") {
 
         $id = intval( $_REQUEST ['id'] );
 
-        $sql_query = $db->query ( "SELECT vass_audios.artist_id, vass_audios.id AS audio_id, vass_audios.loved, vass_audios.title AS audio_title,
-				vass_artists.id AS artist_id, vass_artists.name AS audio_artist, vass_albums.name AS audio_album, vass_albums.id AS album_id
-				FROM vass_audios LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audios.artist_id REGEXP '[[:<:]]" . $id . "[[:>:]]' LIMIT $start,$results_number");
-
-        $total_results = $db->super_query ( "SELECT COUNT(*) AS count
-				FROM vass_audios LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audios.artist_id REGEXP '[[:<:]]" . $id . "[[:>:]]'" );
+        $sql_query = artist_results ($id , $start , $results_number );
+        $total_results = artist_total_results ($id );
 
         while ( $row = $db->get_row ($sql_query) ) {
 
@@ -1807,7 +1801,7 @@ if ($type == "top") {
 
         $id = intval( $_REQUEST ['id'] );
 
-        $row = $db->super_query ( "SELECT vass_albums.descr, vass_albums.id AS album_id, vass_albums.name, vass_artists.id AS artist_id, vass_artists.name AS artist FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id =  vass_artists.id WHERE vass_albums.id = '" . $id . "';" );
+        $row = album_id ($id );
 
         $album = $row;
 
@@ -1819,12 +1813,10 @@ if ($type == "top") {
 
         $id = intval( $_REQUEST ['id'] );
 
-        $sql_query = $db->query ( "SELECT vass_audios.artist_id, vass_audios.id AS audio_id, vass_audios.loved, vass_audios.title AS audio_title,
-				vass_artists.id AS artist_id, vass_artists.name AS audio_artist, vass_albums.name AS audio_album, vass_albums.id AS album_id
-				FROM vass_audios LEFT JOIN vass_albums ON vass_audios.album_id = vass_albums.id LEFT JOIN
-				vass_artists ON vass_audios.artist_id = vass_artists.id WHERE vass_audios.album_id = '$id' LIMIT $start,$results_number");
+        $sql_query = album_results ($id , $start , $results_number );
 
-        $total_results = $db->super_query ( "SELECT COUNT(*) AS count FROM vass_audios WHERE album_id = '$id'" );
+
+        $total_results = album_total_results ($id );
 
         while ( $row = $db->get_row ($sql_query) ) {
 
@@ -1871,7 +1863,7 @@ if ($type == "top") {
 
     $start = $_REQUEST['start'];
 
-    $sql_result = $db->query("SELECT vass_friendship.follower_id, vass_users.username, vass_users.name, vass_users.bio, vass_users.website, vass_users.total_loved, vass_users.location, vass_users.total_loved, vass_users.total_following, vass_users.total_followers, vass_users.avatar, vass_background.color, vass_background.image, vass_background.position, vass_background.repeat, vass_background.use_image FROM vass_users LEFT JOIN vass_background ON vass_users.user_id = vass_background.user_id LEFT JOIN vass_friendship ON vass_users.user_id = vass_friendship.follower_id LIMIT 0,50");
+    $sql_result = userlist ();
 
     $total_results = $db->num_rows( $sql_result );
 
@@ -1885,11 +1877,11 @@ if ($type == "top") {
         $row = member_background_color ( $result['user_id'] );
 
         if( $row['image'] ) {
-            $use_image = true;
+            $use_image  = true;
             $is_default = false;
         } else {
             $is_default = true;
-            $use_image = false;
+            $use_image  = false;
         }
         $buffer['background']               = $row;
         $buffer['background']['is_default'] = $is_default;
@@ -1915,16 +1907,11 @@ if ($type == "top") {
 
 }elseif( $type == "albumlist" ){
 
-    $letter = $db->safesql ( $_REQUEST ['letter'] );
-    if(!empty($letter))
-        $db->query("SELECT vass_albums.artist_id, vass_artists.name AS artist, vass_albums.id, vass_albums.id, vass_albums.view, vass_albums.name FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id = vass_artists.id WHERE vass_albums.name LIKE '$letter%' LIMIT 0,20");
-    else
-        $db->query("SELECT vass_albums.artist_id, vass_artists.name AS artist, vass_albums.id, vass_albums.id, vass_albums.view, vass_albums.name FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id = vass_artists.id LIMIT 0,20");
+    $letter    = $db->safesql ( $_REQUEST ['letter'] );
+    $albumlist = albumlist ($letter);
 
-    while ($row = $db->get_row()){
-
+    while ($row = $db->get_row($albumlist)){
         $buffer[] = $row;
-
     }
 
     if(!$buffer) $buffer = array();
@@ -1937,20 +1924,17 @@ if ($type == "top") {
         "total"       => $total_results);
 
     header( 'Cache-Control: no-cache, must-revalidate' );
-
     header( 'Content-type: application/json' );
 
     print json_encode( $buffer );
-}elseif( $type == "artistlist" ){
-    $letter = $db->safesql ( $_REQUEST ['letter'] );
-    if(!empty($letter))
-        $artists = $db->query("SELECT id, name FROM vass_artists WHERE name LIKE binary '$letter%'");
-    else
-        $artists = $db->query("SELECT id, name FROM vass_artists LIMIT 0,20");
+} elseif( $type == "artistlist" ){
+    $letter  = $db->safesql ( $_REQUEST ['letter'] );
+    $artists = artistlist ($letter);
+
 
     while ($row = $db->get_row($artists)){
 
-        $num_audios = $db->super_query("SELECT COUNT(*) AS count FROM vass_audios WHERE artist_id = '" . $row['id'] . "'");
+        $num_audios = audio_count ( $row['id'] );
 
         $row['total_audios'] = $num_audios['count'];
 
@@ -1960,7 +1944,12 @@ if ($type == "top") {
 
     if(!$buffer) $buffer = array();
 
-    $buffer = array("status_code" => 200, "status_text" => "OK", "results" => 20, "start" => $start, "artists" => $buffer, "total" => $total_results);
+    $buffer = array("status_code" => 200,
+        "status_text" => "OK",
+        "results"     => 20,
+        "start"       => $start,
+        "artists"     => $buffer,
+        "total"       => $total_results);
 
     header( 'Cache-Control: no-cache, must-revalidate' );
     header( 'Content-type: application/json' );
@@ -1969,10 +1958,9 @@ if ($type == "top") {
 }elseif( $type == "suggess" ){
 
     $query = $db->safesql( $_REQUEST['query'] );
+    $related = related ( $query );
 
-    $db->query("SELECT id, title FROM vass_audios WHERE title LIKE '%$query%' LIMIT 0,10");
-
-    while ($row = $db->get_row()){
+    while ($row = $db->get_row($related)){
 
         $buffer[] = $row;
 
@@ -1988,10 +1976,10 @@ if ($type == "top") {
 }elseif( $type == "searchalbum" ){
 
     $q = $db->safesql ( $_REQUEST ['q'] );
+    
+    $search_album = search_album ($q);
 
-    $db->query("SELECT vass_albums.artist_id, vass_artists.name AS artist, vass_albums.id, vass_albums.id, vass_albums.view, vass_albums.name FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id = vass_artists.id WHERE vass_albums.name LIKE '%$q%' LIMIT 0,20");
-
-    while ($row = $db->get_row()){
+    while ($row = $db->get_row($search_album)){
 
         $buffer[] = $row;
 
@@ -2014,10 +2002,9 @@ if ($type == "top") {
 }elseif( $type == "searchartist" ){
 
     $q = $db->safesql ( $_REQUEST ['q'] );
+    $search_artist = search_artist ($q);
 
-    $db->query("SELECT id, name FROM vass_artists WHERE name LIKE '%$q%' LIMIT 0,5");
-
-    while ($row = $db->get_row()){
+    while ($row = $db->get_row($search_artist)){
 
         $buffer[] = $row;
 
@@ -2041,10 +2028,9 @@ if ($type == "top") {
 
     $id = intval( $_REQUEST ['id'] );
 
-    $db->query("SELECT vass_albums.artist_id, vass_artists.name AS artist, vass_albums.id, vass_albums.id, vass_albums.view, vass_albums.name
-	FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id = vass_artists.id WHERE vass_artists.id = '$id'");
+    $artist_all_album = artist_all_albums ($id );
 
-    while ($row = $db->get_row()){
+    while ($row = $db->get_row($artist_all_album)){
 
         $buffer[] = $row;
 
@@ -2052,7 +2038,7 @@ if ($type == "top") {
 
     if(!$buffer) $buffer = array();
 
-    $total_results = $db->super_query("SELECT COUNT(*) AS count FROM vass_albums WHERE artist_id = '$id'");
+    $total_results = artist_total_albums ($id );
     $total_results = $total_results['count'];
 
     $buffer = array("status_code" => 200,
@@ -2069,11 +2055,10 @@ if ($type == "top") {
 }elseif( $type == "artistallvideo" ){
 
     $id = intval( $_REQUEST ['id'] );
+    
+    $artist_all_videos = artist_all_videos ($id );
 
-    $db->query("SELECT vass_videos.artist_id, vass_videos.tube_key, vass_artists.name AS artist, vass_videos.id, vass_videos.id, vass_videos.view, vass_videos.name
-	FROM vass_videos LEFT JOIN vass_artists ON vass_videos.artist_id = vass_artists.id WHERE vass_artists.id = '$id'");
-
-    while ($row = $db->get_row()){
+    while ($row = $db->get_row($artist_all_videos)){
 
         $buffer[] = $row;
 
@@ -2081,7 +2066,7 @@ if ($type == "top") {
 
     if(!$buffer) $buffer = array();
 
-    $total_results = $db->super_query("SELECT COUNT(*) AS count FROM vass_videos WHERE artist_id = '$id'");
+    $total_results = artist_total_videos ($id );
 
     $total_results = intval($total_results['count']);
 
@@ -2101,8 +2086,7 @@ if ($type == "top") {
 
     $id = intval( $_REQUEST ['id'] );
 
-    $row = $db->super_query("SELECT vass_videos.artist_id, vass_videos.tube_key, vass_artists.name AS artist, vass_videos.id, vass_videos.id, vass_videos.view, vass_videos.name
-	FROM vass_videos LEFT JOIN vass_artists ON vass_videos.artist_id = vass_artists.id WHERE vass_videos.id = '$id'");
+    $row = videos ($id );
 
     if(!$buffer) $buffer = array();
 

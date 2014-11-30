@@ -14,3 +14,19 @@ function search_follower ($keyword){
 
     return $buffer;
 }
+
+function search_album ($q){
+    global $db;
+
+    $buffer = $db->query("SELECT vass_albums.artist_id, vass_artists.name AS artist, vass_albums.id, vass_albums.id, vass_albums.view, vass_albums.name FROM vass_albums LEFT JOIN vass_artists ON vass_albums.artist_id = vass_artists.id WHERE vass_albums.name LIKE '%" . $q ."%' LIMIT 0,20");
+
+    return $buffer;
+}
+
+function search_artist ($q){
+    global $db;
+
+    $buffer = $db->query("SELECT id, name FROM vass_artists WHERE name LIKE '%" . $q . "%' LIMIT 0,5");
+
+    return $buffer;
+}
