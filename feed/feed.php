@@ -7,9 +7,9 @@ define( 'INCLUDE_DIR', ROOT_DIR . '/includes' );
 include      INCLUDE_DIR . '/config.inc.php';
 require_once INCLUDE_DIR . '/class/_class_mysql.php';
 require_once INCLUDE_DIR . '/db.php';
+require_once INCLUDE_DIR . '/db_query.php';
 require_once INCLUDE_DIR . '/member.php';
 require_once ROOT_DIR    . '/modules/functions.php';
-require_once ROOT_DIR    . '/feed/db_query.php';
 
 header( 'Content-type: text/json' );
 header( 'Content-type: application/json' );
@@ -743,12 +743,14 @@ if ($type == "top") {
 } elseif ($type == "trending") {
 
     $_DATE = date( "d", time() );
+    $start          = $_REQUEST ['start'];
+    $results_number = $_REQUEST ['results'];
 
     $genre = $db->safesql($_REQUEST['genre']);
 
     $genre_id = genre_name ($genre);
 
-    $trending_day = trending_day();
+    $trending_day = trending_day($start , $results_number);
 
     $i = 1;
 
@@ -929,6 +931,24 @@ if ($type == "top") {
     header( 'Content-type: application/json' );
 
     print json_encode( $buffer );
+} elseif ($type == "play_log") {
+    if (! $_REQUEST [$_REQUEST ['username']]) {
+
+        header( 'HTTP/1.0 404 Not Found' );
+
+        $buffer ['status_code'] = 404;
+        $buffer ['status_text'] = "Not Found";
+
+    } else {
+        $username = $db->safesql ( $_REQUEST ['username'] );
+        $row = member_user_id ($name);
+        //played_log($row ['user_id']);
+
+    }
+    $buffer = array ("status_code" => "200" );
+
+    print json_encode( $buffer );
+
 } elseif ($type == "now_playing") {
     if (! $_REQUEST ['audioid']) {
 

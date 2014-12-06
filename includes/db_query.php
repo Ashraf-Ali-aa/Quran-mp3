@@ -1,7 +1,7 @@
 <?php
     
 define( 'ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] );
-define( 'INCLUDE_DB', ROOT_DIR . '/feed/db' );
+define( 'INCLUDE_DB', ROOT_DIR . '/includes/db' );
 
 
 require_once INCLUDE_DB . '/trending.php';

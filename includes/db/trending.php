@@ -1,8 +1,8 @@
 <?php
-function trending_day ($row = '20'){
+function trending_day ($start = 0 , $results_number = 20){
     global $db;
 
-    $buffer = $db->query ( "SELECT COUNT(*) AS count, audio_id FROM vass_analz WHERE `time` > '" . date( "Y-m-d", (time()  - 7*24*3600) ) . "' GROUP BY audio_id ORDER by count DESC LIMIT 0,'" . $row . "'" );
+    $buffer = $db->query ( "SELECT COUNT(*) AS count, audio_id FROM vass_analz WHERE `time` > '" . date( "Y-m-d", (time()  - 7*24*3600) ) . "' GROUP BY audio_id ORDER by count DESC LIMIT " . $start ."," . $results_number . "" );
 
     return $buffer;
 }
